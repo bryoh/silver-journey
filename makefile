@@ -3,10 +3,10 @@
 all: build push deploy
 
 build:
-	docker build -t pogasanov/myproject:latest -f config/myhome/Dockerfile .
+	docker build -t bryo/silver-journey -f Dockerfile .
 
 push:
-	docker push pogasanov/myproject:latest
+	docker push bryo/silver-journey:latest
 
 deploy:
 	eb deploy

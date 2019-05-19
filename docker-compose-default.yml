@@ -7,27 +7,26 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: bash -c "gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+      dockerfile: config/app/Dockerfile
+    command: sh /config/on-container-start.sh
     hostname: app
     volumes:
       - ./app:/app
       - static:/srv
     expose:
-      - 8000
-
+      - "8000"
     depends_on:
       - db
-    #environment:
-      #- DJANGO_SETTINGS_MODULE=silver_journey.local_settings
+    environment:
+      - DJANGO_SETTINGS_MODULE=myproject.settings_dev
   nginx:
     image: nginx:latest
     hostname: nginx
     ports:
       - "8000:8000"
     volumes:
-      - static:/srv:ro
       - ./config/nginx:/etc/nginx/conf.d
+      - static:/srv:ro
     depends_on:
       - app
 
