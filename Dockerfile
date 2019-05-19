@@ -8,13 +8,13 @@ WORKDIR /${project}
 COPY ./silver_journey /${project}
 RUN pip install -r /${project}/requirements.txt
 
-RUN python /${project}/manage.py makemigrations
+#RUN python /${project}/manage.py makemigrations
 
-# Migrate created migrations to database
-RUN python /${project}/manage.py migrate
+## Migrate created migrations to database
+#RUN python /${project}/manage.py migrate
 
-# Copy all static files to specific directory for nginx
-RUN python /${project}/manage.py collectstatic --noinput
+## Copy all static files to specific directory for nginx
+#RUN python /${project}/manage.py collectstatic --noinput
 # Open port 8000 to outside world
 EXPOSE 8000
 #CMD exec gunicorn silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
