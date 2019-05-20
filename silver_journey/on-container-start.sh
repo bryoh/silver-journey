@@ -11,4 +11,4 @@ python manage.py collectstatic
 # If changes occur, kill worker and start a new one
 #gunicorn --reload silver_journey.wsgi:application 
 #python manage.py runserver
-gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
+#gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3

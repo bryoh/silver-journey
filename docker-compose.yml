@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     #command: bash -c "./silver_journey/on-container-start.sh"
-    command: gunicorn silver_journey.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
     hostname: app
     volumes:
       - ./app:/app
