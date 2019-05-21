@@ -5,10 +5,7 @@ services:
     image: postgres
     hostname: db
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    #command: bash -c "./silver_journey/on-container-start.sh"
+    image: bryo/silver-journey
     command: gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
     hostname: app
     volumes:
