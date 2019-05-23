@@ -1,33 +1,51 @@
 version: '3'
 
+
 services:
-  db:
-    image: postgres
-    hostname: db
   app:
-    image: bryo/silver-journey
-    command: gunicorn --forwarded-allow-ips=* silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "./on-container-start.sh" 
     hostname: app
     volumes:
       - ./app:/app
-      - static:/srv
+      - static:/silver_journey/static
     expose:
       - 8000
-
     depends_on:
       - db
-    #environment:
-      #- DJANGO_SETTINGS_MODULE=silver_journey.local_settings
+    environment:
+      - DJANGO_SETTINGS_MODULE=silver_journey.settings
+      - DEBUG=1
+      - SECRET_KEY=foo
+      - NEVERCACHE_KEY=bar
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=silver_journey
+      - SQL_USER=silver_journey
+      - SQL_PASSWORD=hello_django
+      - SQL_HOST=db
+      - SQL_PORT=5432
+  db:
+    image: postgres
+    hostname: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=silver_journey
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=silver_journey
   nginx:
     image: nginx:latest
     hostname: nginx
     ports:
-      - "8000:8000"
+      - 8000:8000
     volumes:
-      - static:/srv:ro
-      - ./config/nginx:/etc/nginx/conf.d
+      - static:/silver_journey/static:ro
+      - ./silver_journey/nginx:/etc/nginx/conf.d
     depends_on:
       - app
 
 volumes:
   static:
+  postgres_data:
