@@ -25,7 +25,7 @@ COPY ./silver_journey/silver_journey /${project}/silver_journey/
 RUN  rm /${project}/silver_journey/local_settings.py
 COPY ./silver_journey/deploy /${project}/deploy/
 COPY ./silver_journey/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./silver_journey/static /${project}/static/
+#COPY ./silver_journey/static /${project}/static/
 COPY ./silver_journey/*.py /${project}/
 COPY ./silver_journey/on-container-start.sh  /${project}/
 
