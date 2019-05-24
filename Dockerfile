@@ -32,6 +32,6 @@ COPY ./silver_journey/on-container-start.sh  /${project}/
 
 EXPOSE 8000
 #CMD exec gunicorn silver_journey.wsgi:application --bind 0.0.0.0:8000 --workers 3
-CMD ["sh", "/silver_journey/on-container-start.sh"]
+CMD ["sh", "/silver_journey/silver_journey/on-container-start.sh"]
 
 
