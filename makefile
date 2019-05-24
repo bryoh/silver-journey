@@ -3,7 +3,7 @@
 all: build push deploy
 
 build:
-	docker build -t bryo/silver-journey -f Dockerfile .
+	docker build -t bryo/silver-journey -f Dockerfile.local .
 
 push:
 	docker push bryo/silver-journey:latest
