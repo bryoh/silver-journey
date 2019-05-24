@@ -2,14 +2,14 @@ version: '3'
 
 
 services:
-  app:
+  silver_journey:
     build:
       context: .
       dockerfile: Dockerfile
     command: bash -c "./on-container-start.sh" 
-    hostname: app
+    hostname: silver_journey
     volumes:
-      - ./app:/app
+      - ./silver_journey:/silver_journey
       - static:/silver_journey/static
     expose:
       - 8000
@@ -44,7 +44,7 @@ services:
       - static:/silver_journey/static:ro
       - ./silver_journey/nginx:/etc/nginx/conf.d
     depends_on:
-      - app
+      - silver_journey
 
 volumes:
   static:

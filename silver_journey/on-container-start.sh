@@ -1,3 +1,4 @@
+rm -rf silver_journey/local_settings.py 
 # Create migrations based on django models
 python manage.py makemigrations
 
