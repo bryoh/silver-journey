@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.local
-    command: bash -c "./on-container-start.sh" 
+    command: bash -c "./silver_journey/on-container-start.sh" 
     hostname: silver_journey
     volumes:
       - ./silver_journey:/silver_journey
