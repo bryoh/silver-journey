@@ -12,7 +12,7 @@ WORKDIR /code/
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add build-base jpeg-dev zlib-dev \
-    && apk add postgresql-dev \
+    && apk add postgresql-dev tree \
     && pip install psycopg2 \
     && apk del build-deps
 
@@ -24,9 +24,12 @@ RUN pip install -r /code/requirements.txt
 RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
-COPY . /code/
+ADD . /code/
 
 EXPOSE 8000
+RUN echo '========================================='
+RUN tree /code/
+RUN echo '========================================='
 
 # run entrypoint.prod.sh
-CMD ["sh" ,"./code/entrypoint.prod.sh"]
+CMD ["sh" ,"/code/entrypoint.prod.sh"]

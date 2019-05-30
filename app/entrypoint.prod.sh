@@ -1,4 +1,9 @@
 #!/bin/sh
+echo " ls ==============================================================="
+ls 
+echo " pwd ==============================================================="
+tree
+
 
 if [ "$DATABASE" = "postgres" ]
 then
@@ -15,9 +20,6 @@ python manage.py flush --no-input
 python manage.py migrate
 python manage.py collectstatic --no-input --clear
 
-
-echo "==============================================================="
-ls 
 
 #useradd wagtail
 #chown -R wagtail /code
