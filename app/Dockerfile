@@ -29,4 +29,4 @@ COPY . /code/
 EXPOSE 8000
 
 # run entrypoint.prod.sh
-CMD ["./code/entrypoint.prod.sh"]
+CMD ["sh" ,"./code/entrypoint.prod.sh"]
