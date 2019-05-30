@@ -10,8 +10,8 @@ services:
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     hostname: app
     volumes:
-      - ./app:/app
-      - static:/code/static
+      - ./app:/code
+      - static:/code/
     expose:
       - 8000
     depends_on:
@@ -42,7 +42,7 @@ services:
       - 8000:8000
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - static:/code/static:ro
+      - static:/code/:ro
     depends_on:
       - app
 
