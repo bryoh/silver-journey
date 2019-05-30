@@ -2,21 +2,21 @@ version: '3'
 
 
 services:
-  silver_journey:
+  app:
     build:
-      context: .
-      dockerfile: Dockerfile.local
-    command: bash -c "./silver_journey/on-container-start.sh" 
-    hostname: silver_journey
+      context: ./app
+      dockerfile: Dockerfile
+    #command: bash -c "./app/entrypoint.prod.sh" 
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    hostname: app
     volumes:
-      - ./silver_journey:/silver_journey
-      - static:/silver_journey/static
+      #- ./app:/app
+      - static:/code/static
     expose:
       - 8000
     depends_on:
       - db
     environment:
-      - DJANGO_SETTINGS_MODULE=silver_journey.settings
       - DEBUG=1
       - SECRET_KEY=foo
       - NEVERCACHE_KEY=bar
@@ -41,10 +41,10 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - static:/silver_journey/static:ro
-      - ./silver_journey/nginx:/etc/nginx/conf.d
+      - ./nginx:/etc/nginx/conf.d
+      - static:/code/static:ro
     depends_on:
-      - silver_journey
+      - app
 
 volumes:
   static:
